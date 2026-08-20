@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisionEdge - Object Detection</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f8;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 80%;
+        max-width: 900px;
+        margin: 50px auto;
+        background: white;
+        padding: 35px;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #666;
+        margin-bottom: 30px;
+    }
+
+    form {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    input[type="file"] {
+        margin: 15px;
+    }
+
+    button {
+        padding: 10px 25px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        background: #222;
+        color: white;
+        font-size: 16px;
+    }
+
+    .summary {
+        background: #f0f2f5;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+    }
+
+    .result {
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .count {
+        font-weight: bold;
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>VisionEdge</h1>
+
+<div class="subtitle">
+    AI-Based Object Detection System
+</div>
+
+<form method="POST" enctype="multipart/form-data">
+    <input type="file" name="image" accept="image/*" required>
+    <br>
+    <button type="submit">Detect Objects</button>
+</form>
+
+{% if detections %}
+
+<div class="summary">
+
+    <h2>Detection Results</h2>
+
+    <p class="count">
+        Total Objects Detected: {{ total_objects }}
+    </p>
+
+    <h3>Object Counts</h3>
+
+    {% for name, count in object_counts.items() %}
+        <p>{{ name }}: {{ count }}</p>
+    {% endfor %}
+
+    <h3>Confidence Scores</h3>
+
+    {% for detection in detections %}
+        <div class="result">
+            {{ detection.name }} —
+            {{ detection.confidence }}
+        </div>
+    {% endfor %}
+
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>
